@@ -21,7 +21,6 @@
         <oracle.jdbc.version>12.1.0.2</oracle.jdbc.version>
     </properties>
 
-
     <build>
         <plugins>
             <plugin>
