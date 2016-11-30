@@ -1,10 +1,12 @@
 package com.kahramani.crawler.telnet.action;
 
+import com.kahramani.crawler.telnet.enums.DeviceModel;
 import com.kahramani.crawler.telnet.enums.PropertyPrefix;
 import com.kahramani.crawler.telnet.exception.TelnetResponseTimeOutException;
 import com.kahramani.crawler.telnet.model.NetworkElement;
 import com.kahramani.crawler.telnet.model.Switch;
 import com.kahramani.crawler.telnet.model.SwitchPortData;
+import com.kahramani.crawler.telnet.util.TelnetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -25,8 +27,8 @@ class SwitchTelnetCrawler extends TelnetDriver implements TelnetCrawler {
 
     private static Logger logger = LoggerFactory.getLogger(SwitchTelnetCrawler.class);
 
-    protected SwitchTelnetCrawler(PropertyPrefix propertyPrefix) {
-        super(propertyPrefix);
+    protected SwitchTelnetCrawler() {
+        super();
     }
 
     /**
@@ -72,6 +74,7 @@ class SwitchTelnetCrawler extends TelnetDriver implements TelnetCrawler {
         List<SwitchPortData> portDataList;
 
         try {
+            this.setConfiguration(TelnetUtils.getPropertyPrefixByDeviceModel(sw.getDeviceModel()));
             if (!this.establishTelnetConnection(sw))
                 logger.error("Could not be connected or logged in to " + this.address(sw));
             else

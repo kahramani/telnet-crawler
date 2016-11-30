@@ -6,7 +6,7 @@ package com.kahramani.crawler.telnet.enums;
 public enum DeviceModel {
 
     /**
-     * device, vendor, host_name_prefix
+     * device, vendor, host_name_prefix, propertyPrefix
      */
     UNIDENTIFIED    ("UNIDENTIFIED", "UNIDENTIFIED", "UNIDENTIFIED"),
     SW_HUAWEI       ("SWITCH", "HUAWEI", "SW_HUA"),
@@ -34,5 +34,12 @@ public enum DeviceModel {
 
     public String getPrefix() {
         return prefix;
+    }
+
+    public String toString() {
+        return new StringBuilder()
+                .append("device: ").append(this.device)
+                .append(", vendor: ").append(this.vendor)
+                .append(", prefix: ").append(this.prefix).toString();
     }
 }

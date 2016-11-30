@@ -5,6 +5,7 @@ import com.kahramani.crawler.telnet.exception.TelnetResponseTimeOutException;
 import com.kahramani.crawler.telnet.model.NetworkElement;
 import com.kahramani.crawler.telnet.model.Olt;
 import com.kahramani.crawler.telnet.model.OltOntData;
+import com.kahramani.crawler.telnet.util.TelnetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -25,8 +26,8 @@ class OltTelnetCrawler extends TelnetDriver implements TelnetCrawler {
 
     private static Logger logger = LoggerFactory.getLogger(OltTelnetCrawler.class);
 
-    protected OltTelnetCrawler(PropertyPrefix propertyPrefix) {
-        super(propertyPrefix);
+    protected OltTelnetCrawler() {
+        super();
     }
 
     /**
@@ -72,6 +73,7 @@ class OltTelnetCrawler extends TelnetDriver implements TelnetCrawler {
         List<OltOntData> ontDataList;
 
         try {
+            this.setConfiguration(TelnetUtils.getPropertyPrefixByDeviceModel(olt.getDeviceModel()));
             if (!this.establishTelnetConnection(olt))
                 logger.error("Could not be connected or logged in to " + this.address(olt));
             else

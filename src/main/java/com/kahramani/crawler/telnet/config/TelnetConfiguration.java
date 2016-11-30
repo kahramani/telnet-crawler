@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.springframework.util.Assert;
 
 /**
  * Created by kahramani on 11/29/2016.
@@ -36,14 +37,13 @@ public class TelnetConfiguration {
     private PropertyHelper propertyHelper;
 
     @Bean
-    protected TelnetConfiguration initialize(PropertyPrefix propertyPrefix) {
-        return new TelnetConfiguration(propertyPrefix);
+    protected TelnetConfiguration initialize() {
+        return new TelnetConfiguration();
     }
 
-    protected TelnetConfiguration(PropertyPrefix propertyPrefix) {
-        if(propertyPrefix == null)
-            throw new BeanCreationException("'propertyPrefix' cannot be null to create bean");
-        String prefix = propertyPrefix.get();
+    protected void setConfiguration(PropertyPrefix propertyPrefix) {
+        Assert.isTrue(propertyPrefix != null, "'propertyPrefix' cannot be null to change configuration");
+        String prefix = propertyPrefix.getPrefix();
         this.username = this.propertyHelper.getString(prefix + ".username");
         this.password = this.propertyHelper.getString(prefix + ".password");
         this.usernamePrompt = this.propertyHelper.getString(prefix + ".username.prompt.pattern");

@@ -37,12 +37,12 @@ class TelnetDriver extends TelnetConfiguration {
     private boolean loggedin = false;
 
     @Bean
-    protected TelnetDriver initialize(PropertyPrefix propertyPrefix) {
-        return new TelnetDriver(propertyPrefix);
+    protected TelnetDriver initialize() {
+        return new TelnetDriver();
     }
 
-    protected TelnetDriver(PropertyPrefix propertyPrefix) {
-        super(propertyPrefix);
+    protected TelnetDriver() {
+        super();
     }
 
     public boolean isLoggedin() {

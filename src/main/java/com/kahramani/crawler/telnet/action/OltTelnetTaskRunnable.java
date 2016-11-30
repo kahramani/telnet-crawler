@@ -4,13 +4,16 @@ import com.kahramani.crawler.telnet.config.PropertyHelper;
 import com.kahramani.crawler.telnet.enums.PropertyPrefix;
 import com.kahramani.crawler.telnet.model.NetworkElement;
 import com.kahramani.crawler.telnet.model.Olt;
+import com.kahramani.crawler.telnet.model.OltOntData;
 import com.kahramani.crawler.telnet.service.RepositoryService;
 import com.kahramani.crawler.telnet.util.Chronometer;
 import com.kahramani.crawler.telnet.util.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class OltTelnetTaskRunnable implements TelnetTaskRunnable {
     private static final Logger logger = LoggerFactory.getLogger(OltTelnetTaskRunnable.class);
     private static final int DEFAULT_OLT_MAX_COUNT_TO_INSERT = 20;
 
+    @Autowired
+    private ApplicationContext applicationContext;
     @Autowired
     private PropertyHelper propertyHelper;
     @Autowired
@@ -53,8 +58,12 @@ public class OltTelnetTaskRunnable implements TelnetTaskRunnable {
 
         Assert.notEmpty(splitList, "'splitList' could not be created");
 
+        OltTelnetCrawler crawler = applicationContext.getBean(OltTelnetCrawler.class);
         for(List<?> partition : splitList) {
-            // TODO crawler stuff
+            List<OltOntData> ontDataList = crawler.crawlAllOver(partition);
+
+            if(!CollectionUtils.isEmpty(ontDataList))
+                repositoryService.insertOltOntDataList(ontDataList);
         }
 
         cr.stop();

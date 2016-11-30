@@ -25,7 +25,7 @@ public class RepositoryConfiguration {
     @Primary
     @Bean("applicationJdbcTemplate")
     public JdbcTemplate applicationJdbcTemplate() {
-        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.get();
+        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.getPrefix();
         BasicDataSource ds = new BasicDataSource();
         ds.setUrl(this.propertyHelper.getString(prefix + ".url"));
         ds.setDriverClassName(this.propertyHelper.getString(prefix + ".driverClass"));
@@ -43,7 +43,7 @@ public class RepositoryConfiguration {
 
     @Bean("switchSourceJdbcTemplate")
     public JdbcTemplate switchSourceJdbcTemplate() {
-        String prefix = PropertyPrefix.SW_SOURCE_DB_PREFIX.get();
+        String prefix = PropertyPrefix.SW_SOURCE_DB_PREFIX.getPrefix();
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setUrl(this.propertyHelper.getString(prefix + ".url"));
         ds.setDriverClassName(this.propertyHelper.getString(prefix + ".driverClass"));
@@ -55,7 +55,7 @@ public class RepositoryConfiguration {
 
     @Bean("oltSourceJdbcTemplate")
     public JdbcTemplate oltSourceJdbcTemplate() {
-        String prefix = PropertyPrefix.OLT_SOURCE_DB_PREFIX.get();
+        String prefix = PropertyPrefix.OLT_SOURCE_DB_PREFIX.getPrefix();
         DriverManagerDataSource ds = new DriverManagerDataSource();
         ds.setUrl(this.propertyHelper.getString(prefix + ".url"));
         ds.setDriverClassName(this.propertyHelper.getString(prefix + ".driverClass"));
@@ -67,26 +67,26 @@ public class RepositoryConfiguration {
 
     @Bean("switchSelectQuery")
     public StringBuilder switchSelectQuery() {
-        String prefix = PropertyPrefix.SW_SOURCE_DB_PREFIX.get();
+        String prefix = PropertyPrefix.SW_SOURCE_DB_PREFIX.getPrefix();
         return this.propertyHelper.getSqlQueryFromFile(prefix + ".select.query.file", true, "UTF-8");
     }
 
     @Bean("oltSelectQuery")
     public StringBuilder oltSelectQuery() {
-        String prefix = PropertyPrefix.OLT_SOURCE_DB_PREFIX.get();
+        String prefix = PropertyPrefix.OLT_SOURCE_DB_PREFIX.getPrefix();
         return this.propertyHelper.getSqlQueryFromFile(prefix + ".select.query.file", true, "UTF-8");
     }
 
     @Bean("switchInsertQuery")
     public StringBuilder switchInsertQuery() {
-        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.get();
+        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.getPrefix();
         prefix += ".sw";
         return this.propertyHelper.getSqlQueryFromFile(prefix + ".insert.query.file", true, "UTF-8");
     }
 
     @Bean("oltInsertQuery")
     public StringBuilder oltInsertQuery() {
-        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.get();
+        String prefix = PropertyPrefix.APPLICATION_DB_PREFIX.getPrefix();
         prefix += ".olt";
         return this.propertyHelper.getSqlQueryFromFile(prefix + ".insert.query.file", true, "UTF-8");
     }
