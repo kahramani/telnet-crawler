@@ -1,7 +1,6 @@
-package com.kahramani.crawler.telnet.action;
+package com.kahramani.crawler.telnet;
 
 import com.kahramani.crawler.telnet.config.TelnetConfiguration;
-import com.kahramani.crawler.telnet.enums.PropertyPrefix;
 import com.kahramani.crawler.telnet.exception.TelnetResponseTimeOutException;
 import com.kahramani.crawler.telnet.util.Chronometer;
 import org.apache.commons.net.telnet.TelnetClient;
@@ -57,16 +56,8 @@ class TelnetDriver extends TelnetConfiguration {
         return targetIp;
     }
 
-    private void setTargetIp(String targetIp) {
-        this.targetIp = targetIp;
-    }
-
     public int getTargetPort() {
         return targetPort;
-    }
-
-    private void setTargetPort(int targetPort) {
-        this.targetPort = targetPort;
     }
 
     public boolean isConnected() {
@@ -82,12 +73,12 @@ class TelnetDriver extends TelnetConfiguration {
      */
     public boolean connect(String targetIp, int targetPort) throws IOException {
         Assert.hasText(targetIp, "'targetIp' cannot be null or empty");
-        this.setTargetIp(targetIp);
+        this.targetIp = targetIp;
 
         if (targetPort <= 0)
-            targetPort = this.DEFAULT_TELNET_PORT;
+            targetPort = DEFAULT_TELNET_PORT;
 
-        this.setTargetPort(targetPort);
+        this.targetPort = targetPort;
 
         logger.debug("About to connect to " + this.address());
 

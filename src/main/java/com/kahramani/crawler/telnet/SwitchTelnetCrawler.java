@@ -1,7 +1,5 @@
-package com.kahramani.crawler.telnet.action;
+package com.kahramani.crawler.telnet;
 
-import com.kahramani.crawler.telnet.enums.DeviceModel;
-import com.kahramani.crawler.telnet.enums.PropertyPrefix;
 import com.kahramani.crawler.telnet.exception.TelnetResponseTimeOutException;
 import com.kahramani.crawler.telnet.model.NetworkElement;
 import com.kahramani.crawler.telnet.model.Switch;
@@ -34,12 +32,13 @@ class SwitchTelnetCrawler extends TelnetDriver implements TelnetCrawler {
     /**
      * to establish a telnet connection to a device
      * @param ne switch which wanted to be connected
+     * @param targetPort switch port which wanted to be connected
      * @return a boolean value which is the flag of operation is success or not
      */
     @Override
-    public boolean establishTelnetConnection(NetworkElement ne) {
+    public boolean establishTelnetConnection(NetworkElement ne, int targetPort) {
         try {
-            return this.connect(ne.getIpAddress(), DEFAULT_TELNET_PORT);
+            return this.connect(ne.getIpAddress(), targetPort);
         } catch (IOException e) {
             logger.error("Failed to establish telnet connection to " + this.address(ne));
         }
@@ -75,7 +74,7 @@ class SwitchTelnetCrawler extends TelnetDriver implements TelnetCrawler {
 
         try {
             this.setConfiguration(TelnetUtils.getPropertyPrefixByDeviceModel(sw.getDeviceModel()));
-            if (!this.establishTelnetConnection(sw))
+            if (!this.establishTelnetConnection(sw, DEFAULT_TELNET_PORT))
                 logger.error("Could not be connected or logged in to " + this.address(sw));
             else
                 sw.setIsReachable(true);

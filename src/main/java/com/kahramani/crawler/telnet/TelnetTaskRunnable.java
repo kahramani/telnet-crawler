@@ -1,4 +1,4 @@
-package com.kahramani.crawler.telnet.action;
+package com.kahramani.crawler.telnet;
 
 import com.kahramani.crawler.telnet.model.NetworkElement;
 

@@ -50,15 +50,15 @@ public class TelnetConfiguration {
         this.passwordPrompt = this.propertyHelper.getString(prefix + ".password.prompt.pattern");
         this.devicePrompt = this.propertyHelper.getString(prefix + ".device.prompt.pattern");
         this.connectionTimeOut = this.propertyHelper.getInt(prefix + ".connection.timeOut",
-                this.DEFAULT_CONNECTION_TIMEOUT);
+                DEFAULT_CONNECTION_TIMEOUT);
         this.socketTimeOut = this.propertyHelper.getInt(prefix + ".socket.timeOut",
-                this.DEFAULT_SOCKET_TIMEOUT);
+                DEFAULT_SOCKET_TIMEOUT);
         this.loginTimeOut = this.propertyHelper.getLong(prefix + ".login.timeOut",
-                this.DEFAULT_LOGIN_TIMEOUT);
+                DEFAULT_LOGIN_TIMEOUT);
         this.commandResponseTimeOut = this.propertyHelper.getLong(prefix + ".response.timeOut",
-                this.DEFAULT_COMMAND_RESPONSE_TIMEOUT);
+                DEFAULT_COMMAND_RESPONSE_TIMEOUT);
         this.postCommandDelay = this.propertyHelper.getLong(prefix + ".post.command.delay",
-                this.DEFAULT_POST_COMMAND_DELAY);
+                DEFAULT_POST_COMMAND_DELAY);
         this.loginRequired = DEFAULT_LOGIN_REQUIRED;
     }
 
